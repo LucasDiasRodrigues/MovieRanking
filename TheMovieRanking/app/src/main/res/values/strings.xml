@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TheMovieRanking</string>
+    <string name="value_rate">%d/10</string>
+    <string name="placeholder_title">Título</string>
+    <string name="placeholder_genre">Gênero</string>
+    <string name="placeholder_year">1999</string>
+    <string name="placeholder_description">Lalalallalalalala</string>
+    <string name="movie_thumb_description">Imagem de capa do filme</string>
+    <string name="original_title">Título Original:</string>
+    <string name="genre">Gênero:</string>
+    <string name="original_language">Idioma original:</string>
+    <string name="tagline">Slogan:</string>
+    <string name="release_year">Ano do lançamento:</string>
+    <string name="budget">Budget:</string>
+    <string name="revenue">Receita:</string>
+    <string name="overview">Sinopse:</string>
+    <string name="vote_average">Nota média:</string>
+    <string name="vote_count">Qtd de votos:</string>
+</resources>
