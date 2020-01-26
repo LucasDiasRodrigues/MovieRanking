@@ -11,6 +11,12 @@ interface TmdbInterface {
         const val imagesBaseURL: String = "https://image.tmdb.org/t/p/w500"
     }
 
+    @GET("search/movie?language=pt-BR&api_key=$API_KEY")
+    fun searchMovies(
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Call<MoviesResponseContainer>
+
     @GET("discover/movie?language=pt-BR&sort_by=popularity.desc&include_video=false&api_key=$API_KEY")
     fun getPopularMovies(
         @Query("page") page: Int

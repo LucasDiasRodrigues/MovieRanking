@@ -59,6 +59,34 @@ class MoviesFragmentViewModel : ViewModel() {
             })
     }
 
+    fun searchMovie(text: String) {
+        tmdbApi.searchMovies(pagination, text)
+            .enqueue(object : Callback<MoviesResponseContainer> {
+                override fun onFailure(call: Call<MoviesResponseContainer>, t: Throwable) {
+                    Log.e("TMDB_call_error", t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<MoviesResponseContainer>,
+                    response: Response<MoviesResponseContainer>
+                ) {
+                    if (response.code() == 200) {
+                        try {
+                            val receivedMovies = response.body()!!.movies
+                            receivedMovies.forEach {
+                                it.genresString = setupGenres(it)
+                            }
+
+                            Log.i("PAGE", pagination.toString())
+                            movies.postValue(receivedMovies as MutableList<Movie>)
+                        } catch (exception: NullPointerException) {
+                            Log.e("TMDB_call_error", response.message())
+                        }
+                    }
+                }
+            })
+    }
+
     fun getGenres() {
         tmdbApi.getGenres().enqueue(object : Callback<GenresResponseContainer> {
             override fun onFailure(call: Call<GenresResponseContainer>, t: Throwable) {

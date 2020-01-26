@@ -10,7 +10,7 @@ data class Movie(
     @SerializedName("original_title") val originalTitle: String,
     @SerializedName("genre_ids") val genres: List<Int>,
     @SerializedName("overview") val overview: String,
-    @SerializedName("release_date") private val releaseDate: String,
+    @SerializedName("release_date") private val releaseDate: String?,
     @SerializedName("popularity") val popularity: Double,
     @SerializedName("budget") val budget: Double?,
     @SerializedName("revenue") val revenue: Double?,
@@ -21,7 +21,10 @@ data class Movie(
 ) : Serializable {
     var genresString: String = ""
 
-    fun getReleaseDate(): String{
-        return releaseDate.substringBefore("-")
+    fun getReleaseDate(): String {
+        when (releaseDate.isNullOrEmpty()) {
+            true -> return ""
+            false -> return releaseDate.substringBefore("-")
+        }
     }
 }

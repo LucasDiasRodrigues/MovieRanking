@@ -44,9 +44,8 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    fun resetMovieList(movies: List<Movie>) {
+    fun resetMovieList() {
         this.movies.clear()
-        this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 
