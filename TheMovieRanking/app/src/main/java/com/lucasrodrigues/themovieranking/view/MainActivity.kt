@@ -1,7 +1,8 @@
-package com.lucasrodrigues.themovieranking
+package com.lucasrodrigues.themovieranking.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.lucasrodrigues.themovieranking.R
 
 class MainActivity : AppCompatActivity() {
 

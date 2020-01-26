@@ -7,20 +7,26 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.lucasrodrigues.themovieranking.MoviesFragment"
+        android:name="com.lucasrodrigues.themovieranking.view.MoviesFragment"
         android:label="movies_fragment"
         tools:layout="@layout/movies_fragment" >
         <action
-            android:id="@+id/action_moviesFragment_to_movieDetailFragment"
+            android:id="@+id/movie_selected"
             app:destination="@id/movieDetailFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/moviesFragment" />
+            app:popUpTo="@+id/moviesFragment" >
+            <argument
+                android:name="NavigateToDetails"
+                app:argType="com.lucasrodrigues.themovieranking.model.Movie"
+                />
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.lucasrodrigues.themovieranking.MovieDetailFragment"
+        android:name="com.lucasrodrigues.themovieranking.view.MovieDetailFragment"
         android:label="MovieDetailFragment" />
 </navigation>

@@ -1,20 +1,20 @@
-package com.lucasrodrigues.themovieranking
+package com.lucasrodrigues.themovieranking.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import com.lucasrodrigues.themovieranking.R
+import com.lucasrodrigues.themovieranking.viewmodel.MovieDetailViewModel
+import kotlinx.android.synthetic.main.movie_detail_fragment.*
+import kotlinx.android.synthetic.main.movies_fragment.*
+import kotlinx.android.synthetic.main.movies_fragment.toolbar
 
 
 class MovieDetailFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MovieDetailFragment()
-    }
 
     private lateinit var viewModel: MovieDetailViewModel
 
@@ -22,7 +22,9 @@ class MovieDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.movie_detail_fragment, container, false)
+        val view =  inflater.inflate(R.layout.movie_detail_fragment, container, false)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

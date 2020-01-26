@@ -16,4 +16,5 @@
     <string name="overview">Sinopse:</string>
     <string name="vote_average">Nota média:</string>
     <string name="vote_count">Qtd de votos:</string>
+    <string name="pesquisar">Pesquisar</string>
 </resources>
