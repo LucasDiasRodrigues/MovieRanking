@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TheMovieRanking</string>
     <string name="value_rate">%d/10</string>
+    <string name="title">Título:</string>
     <string name="placeholder_title">Título</string>
     <string name="placeholder_genre">Gênero</string>
     <string name="placeholder_year">1999</string>

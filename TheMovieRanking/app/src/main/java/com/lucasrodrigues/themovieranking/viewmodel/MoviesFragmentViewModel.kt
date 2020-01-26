@@ -20,11 +20,12 @@ class MoviesFragmentViewModel : ViewModel() {
     }
     val movies = MutableLiveData<MutableList<Movie>>()
     val genres = ArrayList<Genre>()
+    var isSearching: Boolean = false
+    var lastSearchQuery: String = ""
     private var pagination: Int = 1
 
     fun incrementPage() {
         pagination++
-
     }
 
     fun resetPagination() {

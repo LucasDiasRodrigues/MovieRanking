@@ -3,6 +3,7 @@ package com.lucasrodrigues.themovieranking.util
 import com.lucasrodrigues.themovieranking.model.Movie
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbInterface {
@@ -24,7 +25,7 @@ interface TmdbInterface {
 
     @GET("movie/{id}?language=pt-BR&api_key=$API_KEY")
     fun getMovieDetails(
-        @Query("id") id: Int
+        @Path("id") id: Int
     ): Call<Movie>
 
     @GET("genre/movie/list?language=pt-BR&api_key=$API_KEY")

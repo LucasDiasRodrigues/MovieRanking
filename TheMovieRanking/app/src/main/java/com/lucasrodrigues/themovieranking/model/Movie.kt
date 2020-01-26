@@ -8,6 +8,8 @@ data class Movie(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("original_title") val originalTitle: String,
+    @SerializedName("original_language") val originalLanguage: String,
+    @SerializedName("tagline") val tagline: String,
     @SerializedName("genre_ids") val genres: List<Int>,
     @SerializedName("overview") val overview: String,
     @SerializedName("release_date") private val releaseDate: String?,

@@ -42,11 +42,11 @@ class MoviesFragment : Fragment(),
         viewModel = ViewModelProviders.of(this).get(MoviesFragmentViewModel::class.java)
         viewModel.getGenres()
         viewModel.movies.observe(viewLifecycleOwner, Observer {
-            Log.i("MoviesFragment", "Observer")
             moviesAdapter.addMoviesToList(it)
         })
         viewModel.getMovies()
         sv_movies.setOnQueryTextListener(searchListenner())
+        sv_movies.setOnCloseListener(searchCloseListener())
     }
 
     override fun onMovieClick(movie: Movie): View.OnClickListener {
@@ -61,7 +61,10 @@ class MoviesFragment : Fragment(),
 
     override fun onBottomReached() {
         viewModel.incrementPage()
-        viewModel.getMovies()
+        if(viewModel.isSearching)
+            viewModel.searchMovie(viewModel.lastSearchQuery)
+        else
+            viewModel.getMovies()
     }
 
     private fun searchListenner(): SearchView.OnQueryTextListener {
@@ -70,21 +73,21 @@ class MoviesFragment : Fragment(),
             private var runnable = Runnable {}
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.resetPagination()
-                moviesAdapter.resetMovieList()
-                if (query.isNullOrEmpty()) {
-                    viewModel.getMovies()
-                } else {
+                handler.removeCallbacks(runnable)
+                if (!query.isNullOrEmpty()) {
+                    viewModel.resetPagination()
+                    moviesAdapter.resetMovieList()
                     viewModel.searchMovie(query)
+                    viewModel.isSearching = true
+                    viewModel.lastSearchQuery = query
                 }
-
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 handler.removeCallbacks(runnable)
 
-                if (newText.isNullOrEmpty() || newText.trim() != "") {
+                if (!newText.isNullOrEmpty() || newText?.trim() != "") {
                     runnable = Runnable {
                         onQueryTextSubmit(newText)
                     }
@@ -92,15 +95,16 @@ class MoviesFragment : Fragment(),
                 }
                 return false
             }
-
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.menu_movie_list, menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return super.onOptionsItemSelected(item)
-//    }
+    private fun searchCloseListener(): SearchView.OnCloseListener {
+        return SearchView.OnCloseListener {
+            viewModel.isSearching = false
+            viewModel.resetPagination()
+            moviesAdapter.resetMovieList()
+            viewModel.getMovies()
+            false
+        }
+    }
 }
