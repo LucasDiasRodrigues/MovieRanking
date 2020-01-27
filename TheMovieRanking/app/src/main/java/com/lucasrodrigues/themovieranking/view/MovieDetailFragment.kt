@@ -42,7 +42,7 @@ class MovieDetailFragment : Fragment() {
         })
         val safeArgs: MovieDetailFragmentArgs by navArgs()
 
-        if(checkInternetConnection())
+        if (checkInternetConnection())
             viewModel.getMovieDetail(safeArgs.NavigateToDetails)
         else
             connectionError()
@@ -65,7 +65,6 @@ class MovieDetailFragment : Fragment() {
                         (activity as AppCompatActivity).theme
                     )
                 )
-
             } else {
                 toolbar2.setBackgroundColor(
                     resources.getColor(
@@ -84,7 +83,7 @@ class MovieDetailFragment : Fragment() {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    fun connectionError(){
+    fun connectionError() {
         AlertDialog.Builder(activity as AppCompatActivity)
             .setTitle("Ops... ")
             .setMessage("Parece que vc não está conectado à internet :(\nTente novamente mais tarde")

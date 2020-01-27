@@ -1,6 +1,5 @@
 package com.lucasrodrigues.themovieranking.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
         holder.bind(movie)
-        if(position > (itemCount - 2))
+        if (position > (itemCount - 2))
             onBottomReached.onBottomReached()
     }
 

@@ -1,7 +1,6 @@
 package com.lucasrodrigues.themovieranking.model
 
 import com.google.gson.annotations.SerializedName
-import com.lucasrodrigues.themovieranking.util.TmdbInterface
 import java.io.Serializable
 import java.text.NumberFormat
 

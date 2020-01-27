@@ -42,6 +42,10 @@ class MoviesFragment : Fragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.post { (activity as AppCompatActivity).setSupportActionBar(toolbar) }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         rv_movies.adapter = moviesAdapter
         rv_movies.hasFixedSize()
         rv_movies.layoutAnimation =
@@ -50,7 +54,10 @@ class MoviesFragment : Fragment(),
 
         viewModel = ViewModelProviders.of(this).get(MoviesFragmentViewModel::class.java)
         viewModel.movies.observe(viewLifecycleOwner, Observer {
-            moviesAdapter.addMoviesToList(it)
+            if (viewModel.pagination != viewModel.lastPageAdded) {
+                moviesAdapter.addMoviesToList(it)
+                viewModel.updateLastPageAdded()
+            }
         })
 
         getGenresFromAPI()

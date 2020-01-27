@@ -12,7 +12,6 @@ import com.lucasrodrigues.themovieranking.util.TmdbInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.NullPointerException
 
 class MoviesFragmentViewModel : ViewModel() {
     private val tmdbApi by lazy {
@@ -22,17 +21,24 @@ class MoviesFragmentViewModel : ViewModel() {
     val genres = ArrayList<Genre>()
     var isSearching: Boolean = false
     var lastSearchQuery: String = ""
-    private var pagination: Int = 1
+    var pagination: Int = 1
+    var lastPageAdded: Int = 0
 
     fun incrementPage() {
         pagination++
     }
 
+    fun updateLastPageAdded() {
+        lastPageAdded = pagination
+    }
+
     fun resetPagination() {
         pagination = 1
+        lastPageAdded = 0
     }
 
     fun getMovies() {
+        if (pagination == lastPageAdded) return
         tmdbApi.getPopularMovies(pagination)
             .enqueue(object : Callback<MoviesResponseContainer> {
                 override fun onFailure(call: Call<MoviesResponseContainer>, t: Throwable) {
@@ -49,9 +55,7 @@ class MoviesFragmentViewModel : ViewModel() {
                             receivedMovies.forEach {
                                 it.genresString = setupGenres(it)
                             }
-
-                            Log.i("PAGE", pagination.toString())
-                                movies.postValue(receivedMovies as MutableList<Movie>)
+                            movies.postValue(receivedMovies as MutableList<Movie>)
                         } catch (exception: NullPointerException) {
                             Log.e("TMDB_call_error", response.message())
                         }
@@ -78,7 +82,6 @@ class MoviesFragmentViewModel : ViewModel() {
                                 it.genresString = setupGenres(it)
                             }
 
-                            Log.i("PAGE", pagination.toString())
                             movies.postValue(receivedMovies as MutableList<Movie>)
                         } catch (exception: NullPointerException) {
                             Log.e("TMDB_call_error", response.message())
@@ -107,7 +110,6 @@ class MoviesFragmentViewModel : ViewModel() {
                     }
                 }
             }
-
         })
     }
 

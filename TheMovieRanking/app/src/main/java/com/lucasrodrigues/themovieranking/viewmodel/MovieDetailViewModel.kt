@@ -32,7 +32,6 @@ class MovieDetailViewModel : ViewModel() {
                     if (response.code() == 200) {
                         try {
                             val receivedMovie = response.body()
-                            Log.e("SUCESSO", response.body().toString())
                             receivedMovie?.genresString = m.genresString
                             movie.postValue(receivedMovie)
                         } catch (exception: NullPointerException) {
