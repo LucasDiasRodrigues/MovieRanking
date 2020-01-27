@@ -35,10 +35,12 @@ class MovieDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.dataLoaded = false
         viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             binding.movie = it
             binding.imagesBaseUrl = TmdbInterface.imagesBaseURL
+            binding.dataLoaded = true
         })
         val safeArgs: MovieDetailFragmentArgs by navArgs()
 

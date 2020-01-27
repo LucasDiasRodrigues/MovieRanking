@@ -12,6 +12,10 @@
         <variable
             name="imagesBaseUrl"
             type="String" />
+
+        <variable
+            name="dataLoaded"
+            type="Boolean" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -35,6 +39,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 tools:context=".view.MovieDetailFragment">
 
                 <ImageView
@@ -59,6 +64,7 @@
                     android:layout_width="120dp"
                     android:layout_height="180dp"
                     android:layout_margin="16dp"
+                    android:background="@color/cardview_background"
                     android:layout_marginStart="16dp"
                     android:contentDescription="@string/movie_thumb_description"
                     android:elevation="6dp"
@@ -90,6 +96,7 @@
                     android:maxLines="2"
                     android:text="@{movie.title}"
                     android:textSize="18sp"
+                    bindVisibility="@{dataLoaded}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -103,6 +110,7 @@
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="vertical"
+                    android:animateLayoutChanges="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,6 +131,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.originalTitle}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -141,6 +150,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.genresString}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -159,6 +169,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.originalLanguage}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -177,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.releaseDate}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -195,6 +207,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.tagline}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -213,6 +226,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{movie.overview}"
                         android:textSize="18sp"
+                        bindVisibility="@{dataLoaded}"
                         app:layout_constraintStart_toStartOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -245,6 +259,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:animateLayoutChanges="true"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -253,6 +268,7 @@
                             android:layout_weight="1"
                             android:text="@{movie.budget}"
                             android:textSize="18sp"
+                            bindVisibility="@{dataLoaded}"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -262,6 +278,7 @@
                             android:layout_weight="1"
                             android:text="@{movie.revenue}"
                             android:textSize="18sp"
+                            bindVisibility="@{dataLoaded}"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
                     </LinearLayout>
@@ -296,6 +313,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
                         android:layout_marginBottom="16dp">
 
                         <TextView
@@ -304,6 +322,7 @@
                             android:layout_weight="1"
                             android:text="@{`` + movie.voteAverage}"
                             android:textSize="18sp"
+                            bindVisibility="@{dataLoaded}"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -313,6 +332,7 @@
                             android:layout_weight="1"
                             android:text="@{`` + movie.voteCount}"
                             android:textSize="18sp"
+                            bindVisibility="@{dataLoaded}"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
                     </LinearLayout>
