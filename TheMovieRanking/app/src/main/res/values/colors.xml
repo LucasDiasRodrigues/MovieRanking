@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffeb3b</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="cardview_background">#FF424242</color>
+    <color name="loading_background">#202020</color>
 </resources>

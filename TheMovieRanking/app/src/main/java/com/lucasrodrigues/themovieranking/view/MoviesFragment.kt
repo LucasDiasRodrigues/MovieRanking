@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.lucasrodrigues.themovieranking.R
+import com.lucasrodrigues.themovieranking.databinding.MoviesFragmentBinding
 import com.lucasrodrigues.themovieranking.model.Movie
 import com.lucasrodrigues.themovieranking.viewmodel.MoviesFragmentViewModel
 import kotlinx.android.synthetic.main.movies_fragment.*
@@ -24,8 +25,7 @@ import kotlinx.android.synthetic.main.movies_fragment.*
 class MoviesFragment : Fragment(),
     MoviesAdapter.MovieClickListenner,
     MoviesAdapter.onBottomReachedListenner {
-
-
+    private lateinit var binding: MoviesFragmentBinding
     private val moviesAdapter: MoviesAdapter by lazy {
         MoviesAdapter(this, this)
     }
@@ -35,8 +35,8 @@ class MoviesFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.movies_fragment, container, false)
-        return view
+        binding = MoviesFragmentBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,6 +57,7 @@ class MoviesFragment : Fragment(),
             if (viewModel.pagination != viewModel.lastPageAdded) {
                 moviesAdapter.addMoviesToList(it)
                 viewModel.updateLastPageAdded()
+                binding.dataLoaded = true
             }
         })
 
@@ -65,6 +66,8 @@ class MoviesFragment : Fragment(),
 
         sv_movies.setOnQueryTextListener(searchListenner())
         sv_movies.setOnCloseListener(searchCloseListener())
+
+        binding.dataLoaded = (moviesAdapter.itemCount != 0)
     }
 
     fun getMoviesFromAPI() {
@@ -102,8 +105,10 @@ class MoviesFragment : Fragment(),
         viewModel.incrementPage()
         if (viewModel.isSearching)
             searchMovies(viewModel.lastSearchQuery)
-        else
+        else {
             getMoviesFromAPI()
+            binding.dataLoaded = false
+        }
     }
 
     private fun searchListenner(): SearchView.OnQueryTextListener {

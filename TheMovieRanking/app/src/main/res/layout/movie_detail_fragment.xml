@@ -20,6 +20,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
@@ -339,5 +340,19 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:background="@color/loading_background"
+           android:layout_gravity="bottom"
+            android:elevation="12dp"
+            bindVisibility="@{!dataLoaded}"
+            android:layout_height="80dp">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/colorPrimaryDark"
+                android:layout_gravity="center"/>
+        </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
