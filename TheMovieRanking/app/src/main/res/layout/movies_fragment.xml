@@ -30,8 +30,11 @@
         android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
         tools:listitem="@layout/item_movie" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

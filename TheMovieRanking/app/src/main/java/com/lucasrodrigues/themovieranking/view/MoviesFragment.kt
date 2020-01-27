@@ -4,8 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import com.lucasrodrigues.themovieranking.R
 import com.lucasrodrigues.themovieranking.model.Movie
 import com.lucasrodrigues.themovieranking.viewmodel.MoviesFragmentViewModel
 import kotlinx.android.synthetic.main.movies_fragment.*
+
 
 class MoviesFragment : Fragment(),
     MoviesAdapter.MovieClickListenner,
@@ -41,6 +44,9 @@ class MoviesFragment : Fragment(),
         view?.post { (activity as AppCompatActivity).setSupportActionBar(toolbar) }
         rv_movies.adapter = moviesAdapter
         rv_movies.hasFixedSize()
+        rv_movies.layoutAnimation =
+            AnimationUtils.loadLayoutAnimation(rv_movies.context, R.anim.layout_animation_fall_down)
+        rv_movies.scheduleLayoutAnimation()
 
         viewModel = ViewModelProviders.of(this).get(MoviesFragmentViewModel::class.java)
         viewModel.movies.observe(viewLifecycleOwner, Observer {
@@ -129,6 +135,7 @@ class MoviesFragment : Fragment(),
             viewModel.isSearching = false
             viewModel.resetPagination()
             moviesAdapter.resetMovieList()
+            rv_movies.scheduleLayoutAnimation()
             getMoviesFromAPI()
             false
         }

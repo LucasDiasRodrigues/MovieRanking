@@ -39,7 +39,6 @@ class MoviesAdapter(
     }
 
     fun addMoviesToList(movies: List<Movie>) {
-        Log.i("MoviesAdapter", "addMovies")
         this.movies.addAll(movies)
         notifyDataSetChanged()
     }

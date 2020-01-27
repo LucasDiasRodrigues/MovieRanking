@@ -54,6 +54,7 @@
 
                 <ImageView
                     android:id="@+id/movie_thumb"
+                    android:transitionName="movie_thumb"
                     bindResource="@{imagesBaseUrl + movie.poster}"
                     android:layout_width="120dp"
                     android:layout_height="180dp"
@@ -77,13 +78,13 @@
                     app:layout_constraintBottom_toBottomOf="@+id/movie_thumb"
                     app:layout_constraintStart_toEndOf="@+id/movie_thumb"
                     app:layout_constraintTop_toTopOf="@+id/movie_thumb"
-                    app:layout_constraintVertical_bias="0.68" />
+                    app:layout_constraintVertical_bias="0.75" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="2"
@@ -128,7 +129,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="21dp"
                         android:text="@string/genre"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -146,7 +147,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="21dp"
                         android:text="@string/original_language"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -164,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="21dp"
                         android:text="@string/release_year"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -182,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="21dp"
                         android:text="@string/tagline"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -200,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="21dp"
                         android:text="@string/overview"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -222,7 +223,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="21dp"
                             android:layout_weight="1"
                             android:text="@string/budget"
                             android:textSize="18sp"
@@ -233,7 +234,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="21dp"
                             android:layout_weight="1"
                             android:text="@string/revenue"
                             android:textSize="18sp"
@@ -250,7 +251,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@{`` + movie.budget}"
+                            android:text="@{movie.budget}"
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -259,7 +260,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@{`` + movie.revenue}"
+                            android:text="@{movie.revenue}"
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="@+id/textView"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -272,7 +273,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="21dp"
                             android:layout_weight="1"
                             android:text="@string/vote_average"
                             android:textSize="18sp"
@@ -283,7 +284,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="21dp"
                             android:layout_weight="1"
                             android:text="@string/vote_count"
                             android:textSize="18sp"
