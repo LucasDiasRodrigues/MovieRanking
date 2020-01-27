@@ -1,10 +1,13 @@
 package com.lucasrodrigues.themovieranking.view
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,13 +43,36 @@ class MoviesFragment : Fragment(),
         rv_movies.hasFixedSize()
 
         viewModel = ViewModelProviders.of(this).get(MoviesFragmentViewModel::class.java)
-        viewModel.getGenres()
         viewModel.movies.observe(viewLifecycleOwner, Observer {
             moviesAdapter.addMoviesToList(it)
         })
-        viewModel.getMovies()
+
+        getGenresFromAPI()
+        getMoviesFromAPI()
+
         sv_movies.setOnQueryTextListener(searchListenner())
         sv_movies.setOnCloseListener(searchCloseListener())
+    }
+
+    fun getMoviesFromAPI() {
+        if (checkInternetConnection())
+            viewModel.getMovies()
+        else
+            connectionError()
+    }
+
+    fun getGenresFromAPI() {
+        if (checkInternetConnection())
+            viewModel.getGenres()
+        else
+            connectionError()
+    }
+
+    fun searchMovies(query: String) {
+        if (checkInternetConnection())
+            viewModel.searchMovie(query)
+        else
+            connectionError()
     }
 
     override fun onMovieClick(movie: Movie): View.OnClickListener {
@@ -61,10 +87,10 @@ class MoviesFragment : Fragment(),
 
     override fun onBottomReached() {
         viewModel.incrementPage()
-        if(viewModel.isSearching)
-            viewModel.searchMovie(viewModel.lastSearchQuery)
+        if (viewModel.isSearching)
+            searchMovies(viewModel.lastSearchQuery)
         else
-            viewModel.getMovies()
+            getMoviesFromAPI()
     }
 
     private fun searchListenner(): SearchView.OnQueryTextListener {
@@ -77,7 +103,7 @@ class MoviesFragment : Fragment(),
                 if (!query.isNullOrEmpty()) {
                     viewModel.resetPagination()
                     moviesAdapter.resetMovieList()
-                    viewModel.searchMovie(query)
+                    searchMovies(query)
                     viewModel.isSearching = true
                     viewModel.lastSearchQuery = query
                 }
@@ -103,8 +129,23 @@ class MoviesFragment : Fragment(),
             viewModel.isSearching = false
             viewModel.resetPagination()
             moviesAdapter.resetMovieList()
-            viewModel.getMovies()
+            getMoviesFromAPI()
             false
         }
+    }
+
+    fun checkInternetConnection(): Boolean {
+        val connectivityManager: ConnectivityManager =
+            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun connectionError() {
+        AlertDialog.Builder(activity as AppCompatActivity)
+            .setTitle("Ops... ")
+            .setMessage("Parece que vc não está conectado à internet :(\nTente novamente mais tarde")
+            .create()
+            .show()
     }
 }

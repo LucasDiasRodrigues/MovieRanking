@@ -1,9 +1,12 @@
 package com.lucasrodrigues.themovieranking.view
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -38,7 +41,11 @@ class MovieDetailFragment : Fragment() {
             binding.imagesBaseUrl = TmdbInterface.imagesBaseURL
         })
         val safeArgs: MovieDetailFragmentArgs by navArgs()
-        viewModel.getMovieDetail(safeArgs.NavigateToDetails)
+
+        if(checkInternetConnection())
+            viewModel.getMovieDetail(safeArgs.NavigateToDetails)
+        else
+            connectionError()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,5 +75,20 @@ class MovieDetailFragment : Fragment() {
                 )
             }
         }
+    }
+
+    fun checkInternetConnection(): Boolean {
+        val connectivityManager: ConnectivityManager =
+            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun connectionError(){
+        AlertDialog.Builder(activity as AppCompatActivity)
+            .setTitle("Ops... ")
+            .setMessage("Parece que vc não está conectado à internet :(\nTente novamente mais tarde")
+            .create()
+            .show()
     }
 }
